@@ -14,6 +14,7 @@ package org.usfirst.frc2619.TubeBot2017.subsystems;
 import org.usfirst.frc2619.TubeBot2017.RobotMap;
 import org.usfirst.frc2619.TubeBot2017.commands.*;
 import edu.wpi.first.wpilibj.CANJaguar;
+import edu.wpi.first.wpilibj.can.CANTimeoutException;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -44,6 +45,25 @@ public class Elbow extends Subsystem {
 
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
+    }
+    public void SetPositionMode() throws CANTimeoutException{
+        elbowMotor.changeControlMode(CANJaguar.ControlMode.kPosition);
+        /*arm->SetPID(ARM_P, -.02, 0);
+			arm->ConfigNeutralMode(CANJaguar::kNeutralMode_Brake);
+			arm->SetSafetyEnabled(false);
+			arm->ConfigMaxOutputVoltage(13);
+			arm->SetPositionReference(CANJaguar::kPosRef_Potentiometer);
+			arm->ConfigPotentiometerTurns(1);
+			arm->EnableControl(0);*/
+        elbowMotor.setPID(-1500, -.02, 0);
+        elbowMotor.configNeutralMode(CANJaguar.NeutralMode.kBrake);
+        elbowMotor.configMaxOutputVoltage(13);
+        elbowMotor.setPositionReference(CANJaguar.PositionReference.kPotentiometer);
+        elbowMotor.configPotentiometerTurns(1);
+        elbowMotor.enableControl(0);
+    }
+    public void SetPosition(double inp){
+        elbowMotor.set(inp);
     }
 }
 

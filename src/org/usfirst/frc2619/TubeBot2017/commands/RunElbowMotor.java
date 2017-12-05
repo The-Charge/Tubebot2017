@@ -11,9 +11,10 @@
 
 package org.usfirst.frc2619.TubeBot2017.commands;
 
+import edu.wpi.first.wpilibj.can.CANTimeoutException;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc2619.TubeBot2017.Robot;
-
+import org.usfirst.frc2619.TubeBot2017.OI;
 /**
  *
  */
@@ -38,10 +39,17 @@ public class RunElbowMotor extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        try {
+            Robot.elbow.SetPositionMode();
+        } catch (CANTimeoutException ex) {
+            ex.printStackTrace();
+        }
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        double armPos = Robot.oi.getLeftJoystick().getThrottle();
+        Robot.elbow.SetPosition(armPos);
     }
 
     // Make this return true when this Command no longer needs to run execute()
