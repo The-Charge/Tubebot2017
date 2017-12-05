@@ -45,5 +45,12 @@ public class Claw extends Subsystem {
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
     }
+    public void Open(){
+        //TODO: Needs testing.
+        clawSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
+    public void Close(){
+        clawSolenoid.set(DoubleSolenoid.Value.kForward);
+    }
 }
 
